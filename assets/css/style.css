@@ -1,0 +1,30 @@
+body {
+    height: 100%;
+}
+
+header {
+    height: 10%;
+    background-color: lightskyblue;
+}
+
+header h1 {
+    text-align: center;
+    color: white;
+}
+
+main {
+    height: 90%;
+    display: inline;
+}
+
+aside {
+    width: 20%;
+}
+
+#searchContainer button, #searchContainer input {
+    width: 98%;
+}
+
+article {
+    width: 80%;
+}
