@@ -1,22 +1,8 @@
 {
   "name": "weather-dashboard",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Vy187/weather-dashboard.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Vy187/weather-dashboard/issues"
-  },
-  "homepage": "https://github.com/Vy187/weather-dashboard#readme",
+  "main": "server.js",
+  "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.1",
     "express": "^4.18.1"

@@ -1,13 +1,7 @@
-function searchCity() {
-    fetch("http://api.openweathermap.org/data/2.5/weather?q=" + $("#city").val() + "&limit=1&units=imperial&appid=" + apiKey)
-        .then(function (response) {
-            console.log(response);
-            return response.json();
-        })
-        .then(function(data){
-            console.log(data);
-        })
+const getData = () =>
+    fetch(`/api/` + $(`#search`).val(), {
+        method: `GET`,
+        headers: { 'Content-Type': 'application/json'}
+    })
 
-}
-
-// $("#search").on("click", searchCity);
+$("#search").on("click", searchCity);
