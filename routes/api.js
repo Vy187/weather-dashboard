@@ -3,7 +3,7 @@ const fetch = require(`node-fetch`);
 require(`dotenv`).config();
 
 const fetchCurrentWeather = async (searchText) => {
-    const url = `http://api.openweathermap.org/data/2.5/weather?q=${searchText}&limit=1&units=imperial&appid=${process.env.API_KEY}`;
+    const url = `http://api.openweathermap.org/data/2.5/weather?q=${searchText}&appid=${process.env.API_KEY}`;
     try {
         const weatherStream = await fetch(url);
         const weatherJson = await weatherStream.json();
@@ -13,8 +13,8 @@ const fetchCurrentWeather = async (searchText) => {
     }
 }
 
-const fetchForcastWeather = async (searchText) => {
-    const url = `http://api.openweathermap.org/data/2.5/forecast/?q=${searchText}&appid=${process.env.API_KEY}&units=imperial`;
+const fetchForcastWeather = async (lat, lon) => {
+    const url = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly,alerts&appid=${process.env.API_KEY}`;
     try {
         const weatherStream = await fetch(url);
         const weatherJson = await weatherStream.json();
@@ -27,9 +27,8 @@ const fetchForcastWeather = async (searchText) => {
 api.get(`/:searchText`, async (req, res) =>{
     const searchText = req.params.searchText;
     const current = await fetchCurrentWeather(searchText);
-    const forcast = await fetchForcastWeather(searchText)
-    const data = { current, forcast }
-    res.json(data);
+    const forcast = await fetchForcastWeather(current.coord.lat, current.coord.lon);
+    res.json(forcast);
 })
 
 module.exports = api;
