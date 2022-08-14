@@ -26,9 +26,9 @@ const fetchForcastWeather = async (searchText) => {
 
 api.get(`/:searchText`, async (req, res) =>{
     const searchText = req.params.searchText;
-    const data1 = await fetchCurrentWeather(searchText);
-    const data2 = await fetchForcastWeather(searchText)
-    const data = { data1, data2 }
+    const current = await fetchCurrentWeather(searchText);
+    const forcast = await fetchForcastWeather(searchText)
+    const data = { current, forcast }
     res.json(data);
 })
 

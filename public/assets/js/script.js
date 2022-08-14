@@ -1,13 +1,14 @@
-const getData = () => {
+const getData = () => 
     fetch(`/api/` + $(`#city`).val(), {
         method: `GET`,
         headers: { 'Content-Type': 'application/json'}
     })
-}
     
-const searchCity = () => {
-    data = getData();
-    console.log(data);
+const renderData = async (data) => {
+    let dataRetrieved = await data.json();
+    console.log(dataRetrieved);
 }
 
-$("#search").on("click", searchCity);
+const getAndRenderData = () => getData().then(renderData)
+
+$("#search").on("click", getAndRenderData);
