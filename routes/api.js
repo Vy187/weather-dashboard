@@ -28,9 +28,8 @@ api.get(`/:searchText`, async (req, res) =>{
     const searchText = req.params.searchText;
     const current = await fetchCurrentWeather(searchText);
     const forcast = await fetchForcastWeather(current.coord.lat, current.coord.lon);
-    const name = current.name
-    const forcastWithCityName = { name , forcast }
-    res.json(forcastWithCityName);
+    forcast.name = current.name
+    res.json(forcast);
 })
 
 module.exports = api;
