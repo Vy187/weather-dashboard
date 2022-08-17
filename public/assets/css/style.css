@@ -25,6 +25,15 @@ aside {
     width: 98%;
 }
 
-article {
+section {
     width: 80%;
+}
+
+#today {
+    border: 1px solid black;
+}
+
+figure{ 
+    color: white;
+    background-color: darkblue;
 }
