@@ -9,7 +9,7 @@ const fetchCurrentWeather = async (searchText) => {
         const weatherJson = await weatherStream.json();
         return weatherJson;
     } catch (err) {
-        return { Error: err.stack}
+        return { Error: err.stack }
     }
 }
 
@@ -20,16 +20,20 @@ const fetchForcastWeather = async (lat, lon) => {
         const weatherJson = await weatherStream.json();
         return weatherJson;
     } catch (err) {
-        return { Error: err.stack}
+        return { Error: err.stack }
     }
 }
 
-api.get(`/:searchText`, async (req, res) =>{
+api.get(`/:searchText`, async (req, res) => {
     const searchText = req.params.searchText;
     const current = await fetchCurrentWeather(searchText);
-    const forcast = await fetchForcastWeather(current.coord.lat, current.coord.lon);
-    forcast.name = current.name
-    res.json(forcast);
+    if (current.cod == 404) {
+        res.json(current)
+    } else {
+        const forcast = await fetchForcastWeather(current.coord.lat, current.coord.lon);
+        forcast.name = current.name
+        res.json(forcast);
+    }
 })
 
 module.exports = api;
