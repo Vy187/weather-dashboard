@@ -30,7 +30,12 @@ section {
 }
 
 #today {
-    border: 1px solid black;
+    display: block;
+}
+
+figcaption {
+    display: flex;
+    align-items: center;
 }
 
 figure{ 

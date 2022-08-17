@@ -10,7 +10,7 @@ const parseDataNeeded = async (dataRetrieved) => {
     parsedData = {
         name: data.name,
         currentDate: `${moment.unix(data.current.dt).format(`M/D/YYYY`)}`,
-        currentIcon: `<i src="http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png"></i>`,
+        currentIcon: `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`,
         currentTemp: `Temp: ${data.current.temp} °F`,
         currentWind: `Wind: ${data.current.wind_speed} MPH`,
         currentHumidity: `Humidity: ${data.current.humidity}`,
@@ -35,15 +35,23 @@ const parseDataNeeded = async (dataRetrieved) => {
     return parsedData;
 }
 
-const renderData = async ({name, currentDate, currentIcon, currentTemp, currentWind, currentHumidity, currentUvIndex, forcast}) => {
-    console.log(name);
-    console.log(currentDate);
-    console.log(currentIcon);
-    console.log(currentTemp);
-    console.log(currentWind);
-    console.log(currentHumidity);
-    console.log(currentUvIndex);
-    console.log(forcast);
+const renderData = ({name, currentDate, currentIcon, currentTemp, currentWind, currentHumidity, currentUvIndex, forcast}) => {
+    $(`#cityName`).text(`${name} ${currentDate}`);
+    $(`#currentIcon`).attr(`src`, `${currentIcon}`);
+    $(`#tempature`).text(`${currentTemp}`);
+    $(`#wind`).text(`${currentWind}`);
+    $(`#humidity`).text(`${currentHumidity}`);
+    $(`#uvIndex`).text(`${currentUvIndex}`);
+
+    cards = document.querySelectorAll(`figure`);
+
+    for(i = 0; i < forcast.length; i++) {
+        cards[i].children[0].textContent = `${forcast[i].date}`
+        cards[i].children[1].setAttribute(`src`, forcast[i].icon)
+        cards[i].children[2].textContent = `${forcast[i].temp}`
+        cards[i].children[3].textContent = `${forcast[i].wind}`
+        cards[i].children[4].textContent = `${forcast[i].humidity}`
+    }
 }
 
 const getAndRenderData = () => getData().then(parseDataNeeded).then(renderData)
