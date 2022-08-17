@@ -27,10 +27,25 @@ aside {
 
 section {
     width: 80%;
+    
+}
+
+article {
+    margin: 1%;
+}
+
+img {
+    width: 64px;
+    height: 64px;
+}
+
+.hidden { 
+    visibility: hidden;
 }
 
 #today {
     display: block;
+    padding-left: 1%;
 }
 
 figcaption {
@@ -38,7 +53,19 @@ figcaption {
     align-items: center;
 }
 
+#uvIndexValue {
+    width: 5%;
+    text-align: center;
+    border-radius: 5px;
+    margin-left: .5%
+}
+
 figure{ 
     color: white;
-    background-color: darkblue;
+    margin: 1%;
 }
+
+figure h1 {
+    font-size: 24px;
+}
+
