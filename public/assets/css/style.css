@@ -21,13 +21,30 @@ aside {
     width: 20%;
 }
 
-#searchContainer button, #searchContainer input {
+button, input {
     width: 98%;
 }
 
-section {
+button {
+    margin-top: 1%;
+}
+
+#clear {
+    background-color: red;
+}
+
+#searchContainer, #saveContainer {
+    padding: 0%;
+}
+
+#saveContainer{
+    margin-top: 2%;
+    border-top: 1px solid black;
+    padding-top: 2%;
+}
+
+.col-9 {
     width: 80%;
-    
 }
 
 article {
@@ -68,4 +85,3 @@ figure{
 figure h1 {
     font-size: 24px;
 }
-

@@ -1,3 +1,5 @@
+let savedCites = JSON.parse(localStorage.getItem(`savedCities`))
+
 const getData = () =>
     fetch(`/api/` + $(`#city`).val(), {
         method: `GET`,
@@ -79,10 +81,36 @@ const renderData = ({ cod, name, currentDate, currentIcon, currentTemp, currentW
         }
 
         $(`#city`).val(``);
+        $(`#city`).attr(`placeholder`, `Enter a city name`);
+
+        let cityName = name;
+
+        if (savedCites == null) {
+            cityName = [cityName]
+            localStorage.setItem(`savedCities`, JSON.stringify(cityName))
+            $(`#saveContainer`).append(`<button>${cityName}</button>`)
+        } else if (!(savedCites.includes(name))){
+            savedCites.push(cityName);
+            savedCites.sort();
+            localStorage.setItem(`savedCities`, JSON.stringify(savedCites))
+            $(`#saveContainer`).append(`<button>${cityName}</button>`)
+        }
     } else {
         $(`#city`).val(``);
         $(`#city`).attr(`placeholder`, `Enter a valid city name`);
     }
+}
+
+const loadSavedCities = (savedCities) => {
+    for(i = 0; i < savedCities.length; i++) {
+        $(`#saveContainer`).append(`<button>${savedCities[i]}</button>`)
+    }
+
+    $(`aside`).append(`<button id="clear">Clear History</button>`)
+}
+
+if(savedCites != null) {
+    loadSavedCities(savedCites);
 }
 
 const getAndRenderData = () => getData().then(parseDataNeeded).then(renderData)
