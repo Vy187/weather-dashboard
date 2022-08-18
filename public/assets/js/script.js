@@ -128,6 +128,8 @@ if (savedCites != null) {
 }
 
 $(`aside`).on(`click`, (event) => {
+event.preventDefault();
+
     if (event.target.tagName == `BUTTON`) {
         switch(event.target.textContent) {
             case `Search`:
