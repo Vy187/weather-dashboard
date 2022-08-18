@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3001;
 const rateLimit = require(`express-rate-limit`);
 const limiter = rateLimit({ windowMs: 1000, max: 1 });
 const cors = require(`cors`);
-const whitelist = [`http://localhost:3001/`];
+const whitelist = [`http://localhost:3001/`, `https://vys-weather-dashboard.herokuapp.com/`, `http://localhost:13188`];
 const corsOptions = {
     origin: (origin, callback) => {
         if (!origin || whitelist.indexOf(origin) !== -1) {
