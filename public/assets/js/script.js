@@ -131,7 +131,11 @@ $(`aside`).on(`click`, (event) => {
     if (event.target.tagName == `BUTTON`) {
         switch(event.target.textContent) {
             case `Search`:
-                getAndRenderData($(`#city`).val());
+                if($(`#city`).val() !== ''){
+                    getAndRenderData($(`#city`).val());
+                } else {
+                    $(`#city`).attr(`placeholder`, `Enter a valid city name`);
+                }
                 break;
             case `Clear History`:
                 clearHistory();
