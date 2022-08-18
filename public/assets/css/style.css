@@ -3,13 +3,12 @@ body {
 }
 
 header {
+    font-size: 64px;
     height: 10%;
     background-color: lightskyblue;
-}
-
-header h1 {
     text-align: center;
     color: white;
+    line-height: 200%;
 }
 
 main {
