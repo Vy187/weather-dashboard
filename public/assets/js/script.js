@@ -1,7 +1,7 @@
-let savedCites = JSON.parse(localStorage.getItem(`savedCities`))
+let savedCites = JSON.parse(localStorage.getItem(`savedCities`));
 
-const getData = () =>
-    fetch(`/api/` + $(`#city`).val(), {
+const getData = (searchedText) =>
+    fetch(`/api/` + searchedText, {
         method: `GET`,
         headers: { 'Content-Type': 'application/json' }
     })
@@ -45,7 +45,7 @@ const parseDataNeeded = async (dataRetrieved) => {
 
 const renderData = ({ cod, name, currentDate, currentIcon, currentTemp, currentWind, currentHumidity, currentUvIndex, forcast }) => {
     if (cod == 200) {
-        $(`#today`).attr(`style`, `border: 2px solid black`)
+        $(`#today`).attr(`style`, `border: 2px solid black`);
         $(`#cityName`).text(`${name} ${currentDate}`);
         $(`#currentIcon`).attr(`src`, `${currentIcon}`);
         $(`#tempature`).text(`${currentTemp}`);
@@ -65,18 +65,18 @@ const renderData = ({ cod, name, currentDate, currentIcon, currentTemp, currentW
 
         for (i = 0; i < forcast.length; i++) {
             cards[i].setAttribute(`style`, `background-color: blue`);
-            cards[i].children[0].textContent = `${forcast[i].date}`
-            cards[i].children[1].setAttribute(`src`, forcast[i].icon)
-            cards[i].children[2].textContent = `${forcast[i].temp}`
-            cards[i].children[3].textContent = `${forcast[i].wind}`
-            cards[i].children[4].textContent = `${forcast[i].humidity}`
+            cards[i].children[0].textContent = `${forcast[i].date}`;
+            cards[i].children[1].setAttribute(`src`, forcast[i].icon);
+            cards[i].children[2].textContent = `${forcast[i].temp}`;
+            cards[i].children[3].textContent = `${forcast[i].wind}`;
+            cards[i].children[4].textContent = `${forcast[i].humidity}`;
         }
 
         hidden = document.querySelectorAll(`.hidden`);
 
         if (hidden.length !== 0) {
             for (i = 0; i < hidden.length; i++) {
-                hidden[i].setAttribute(`class`, `visible`)
+                hidden[i].setAttribute(`class`, `visible`);
             }
         }
 
@@ -86,14 +86,14 @@ const renderData = ({ cod, name, currentDate, currentIcon, currentTemp, currentW
         let cityName = name;
 
         if (savedCites == null) {
-            cityName = [cityName]
-            localStorage.setItem(`savedCities`, JSON.stringify(cityName))
-            $(`#saveContainer`).append(`<button>${cityName}</button>`)
-        } else if (!(savedCites.includes(name))){
+            cityName = [cityName];
+            localStorage.setItem(`savedCities`, JSON.stringify(cityName));
+            $(`#saveContainer`).append(`<button>${cityName}</button>`);
+        } else if (!(savedCites.includes(name))) {
             savedCites.push(cityName);
             savedCites.sort();
-            localStorage.setItem(`savedCities`, JSON.stringify(savedCites))
-            $(`#saveContainer`).append(`<button>${cityName}</button>`)
+            localStorage.setItem(`savedCities`, JSON.stringify(savedCites));
+            $(`#saveContainer`).append(`<button>${cityName}</button>`);
         }
     } else {
         $(`#city`).val(``);
@@ -102,17 +102,42 @@ const renderData = ({ cod, name, currentDate, currentIcon, currentTemp, currentW
 }
 
 const loadSavedCities = (savedCities) => {
-    for(i = 0; i < savedCities.length; i++) {
-        $(`#saveContainer`).append(`<button>${savedCities[i]}</button>`)
+    for (i = 0; i < savedCities.length; i++) {
+        $(`#saveContainer`).append(`<button>${savedCities[i]}</button>`);
     }
 
-    $(`aside`).append(`<button id="clear">Clear History</button>`)
+    $(`#clear`).attr(`class`, `visible`);
 }
 
-if(savedCites != null) {
+const clearHistory = () => {
+    const buttons = document.querySelectorAll(`button`);
+
+    for (i = 1; i < buttons.length - 1; i++) {
+        buttons[i].remove();
+    }
+
+    $(`#clear`).attr(`class`, `hidden`);
+    savedCites = [];
+    localStorage.removeItem(`savedCities`);
+}
+
+const getAndRenderData = (searchedText) => getData(searchedText).then(parseDataNeeded).then(renderData);
+
+if (savedCites != null) {
     loadSavedCities(savedCites);
 }
 
-const getAndRenderData = () => getData().then(parseDataNeeded).then(renderData)
-
-$("#search").on("click", getAndRenderData);
+$(`aside`).on(`click`, (event) => {
+    if (event.target.tagName == `BUTTON`) {
+        switch(event.target.textContent) {
+            case `Search`:
+                getAndRenderData($(`#city`).val());
+                break;
+            case `Clear History`:
+                clearHistory();
+                break;
+            default:
+                getAndRenderData(event.target.textContent);
+        }
+    }
+})
