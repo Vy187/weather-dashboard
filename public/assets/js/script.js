@@ -83,6 +83,7 @@ const renderData = ({ cod, name, currentDate, currentIcon, currentTemp, currentW
         $(`#city`).val(``);
         $(`#city`).attr(`placeholder`, `Enter a city name`);
 
+        savedCites = JSON.parse(localStorage.getItem(`savedCities`));
         let cityName = name;
 
         if (savedCites == null) {
@@ -117,7 +118,6 @@ const clearHistory = () => {
     }
 
     $(`#clear`).attr(`class`, `hidden`);
-    savedCites = [];
     localStorage.removeItem(`savedCities`);
 }
 
