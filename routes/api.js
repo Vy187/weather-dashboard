@@ -3,7 +3,6 @@ const fetch = require(`node-fetch`);
 require(`dotenv`).config();
 
 const fetchCurrentWeather = async (searchText) => {
-    console.log(process.env.API_KEY);
     const url = `http://api.openweathermap.org/data/2.5/weather?q=${searchText}&appid=${process.env.API_KEY}`;
     try {
         const weatherStream = await fetch(url);
@@ -28,7 +27,6 @@ const fetchForcastWeather = async (lat, lon) => {
 api.get(`/:searchText`, async (req, res) => {
     const searchText = req.params.searchText;
     const current = await fetchCurrentWeather(searchText);
-    console.log(current)
     if (current.cod == 404) {
         res.json(current)
     } else {
