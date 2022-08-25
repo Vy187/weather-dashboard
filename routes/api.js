@@ -3,6 +3,7 @@ const fetch = require(`node-fetch`);
 require(`dotenv`).config();
 
 const fetchCurrentWeather = async (searchText) => {
+    console.log(process.env.API_KEY);
     const url = `http://api.openweathermap.org/data/2.5/weather?q=${searchText}&appid=${process.env.API_KEY}`;
     try {
         const weatherStream = await fetch(url);
