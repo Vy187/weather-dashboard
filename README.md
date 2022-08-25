@@ -7,7 +7,7 @@ The weather dashboard is a real time weather application that takes user input t
 * [Preview](#Preview)
 * [Link](#Link)
 * [Installation](#Installation)
-* [Server Startup](#Server)
+* [Server Startup](#Server-Startup)
 * [Packages](#Packages)
 * [License](#License)
 * [Contributing](#Contributing)
