@@ -27,6 +27,7 @@ const fetchForcastWeather = async (lat, lon) => {
 api.get(`/:searchText`, async (req, res) => {
     const searchText = req.params.searchText;
     const current = await fetchCurrentWeather(searchText);
+    console.log(current)
     if (current.cod == 404) {
         res.json(current)
     } else {
